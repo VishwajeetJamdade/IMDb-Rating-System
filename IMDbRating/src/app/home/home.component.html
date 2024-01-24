@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Navigation bar -->
+<div class="container-fluid bg-info border">
+
+  <nav class="navbar navbar-light bg-info">
+    <a class="navbar-brand" routerLink="/home">
+      <h2 class="shadow-lg text-bg-warning rounded-circle py-2 fs-2 fw-bolder ">IMDb</h2>
+    </a>
+
+    <form class="d-flex justify-content-evenly">
+      <input class="form-control py-2 w-100" type="text" placeholder="Search" #SearchMovie>
+      <button class="btn btn-success ms-3" (click)="FilterMovie(SearchMovie.value)" type="submit">Search</button>
+    </form>
+  </nav>
+</div>
+
+<div class="container-fluid">
+  <!-- This card sys shows all movies -->
+  <div class="row" *ngIf="!filterHide">
+    <div class="col-md-3 col-sm-4 mt-2" *ngFor="let movie of allMovies">
+      <div class="card bg-light border-secondary" style="width: 100%;">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" class="card-img-top w-100 h-50 rounded-3" alt="..." (click)="showDetails(movie.id)">
+        <div class="card-body bg-light">
+          <h3 class="card-title text-center text-dark fs-5 text-dark shadow-lg">{{movie.title}}</h3>
+          <div class="d-flex justify-content-center">
+            <h5 class="card-text"><i class="fa fa-star text-bg-warning rounded-circle p-1" aria-hidden="true"></i> <span class="ms-4">{{movie.vote_average}}</span></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- This card sys shows Filter movies -->
+  <div class="row" *ngIf="filterHide">
+    <div class="col-md-3 col-sm-4 mt-1" *ngFor="let movie of filMovies">
+      <div class="card bg-light border-secondary" style="width: 100%;">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" class="card-img-top w-100 h-50 rounded-3" alt="..." (click)="showDetails(movie.id)">
+        <div class="card-body bg-light">
+          <h3 class="card-title text-center text-dark fs-5 text-dark shadow-lg">{{movie.title}}</h3>
+          <div class="d-flex justify-content-center">
+            <h5 class="card-text"><i class="fa fa-star text-bg-warning rounded-circle p-1" aria-hidden="true"></i> <span class="ms-4">{{movie.vote_average}}</span></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,46 +1,63 @@
-<div class="container-fluid bg-info   border ">
+<!-- Navigation bar -->
+<div class="container-fluid bg-info border">
 
- <nav class="navbar navbar-light bg-info  ">
-   <a class="navbar-brand" href="#">
-     <!-- <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" alt=""> -->
-    <h2>IMDb</h2>
-   </a>
- 
-   <form class="  d-flex justify-content-evenly ">
-     <input class="form-control py-2 w-100  " type="search" placeholder="Search" #searchMovie >
-     <button class="btn btn-success ms-3 "  type="submit">Search</button>
-   </form>
- </nav>
- </div>
+  <nav class="navbar navbar-light bg-info">
+    <a class="navbar-brand" routerLink="/home">
+      <h2 class="shadow-lg text-bg-warning rounded-circle py-2 fs-2 fw-bolder ">IMDb</h2>
+    </a>
 
+    <form class="d-flex justify-content-evenly">
+      <input class="form-control py-2 w-100" type="text" placeholder="Search" #SearchMovie>
+      <button class="btn btn-success ms-3" (click)="FilterMovie(SearchMovie.value)" type="submit">Search</button>
+    </form>
+  </nav>
+</div>
 
- <!-- Specific movie info -->
+<!-- Specific movie info -->
 <div class="container-fluid" *ngIf="showMovie">
-    <div class="row" >
-      <div class="col-md-4 border">
-        <div class="card">
-            <img [src]="'https://image.tmdb.org/t/p/w500' + showMovie.poster_path" alt="">
-        </div>
+  <div class="row"  *ngIf="!filterHide">
+    <div class="col-md-4 border">
+      <div class="card">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + showMovie.poster_path" alt="">
       </div>
-      <div class="col-md-8 ">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title fw-bold">{{ showMovie.title }}</h5>
-                <span class="card-text mt-3">{{showMovie.status}} |<span class="ms-4 ">{{showMovie.runtime}}m</span> | <span class="ms-4">{{showMovie.vote_average}}B</span></span>
-                 <p class="card-text mt-3">{{ showMovie.overview }}</p>
-                
-                 <h6>Other Details:</h6>
+    </div>
+    <div class="col-md-8 ">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{ showMovie.title }}</h5>
+          <span class="card-text mt-3">{{showMovie.status}} |<span class="ms-4 ">{{showMovie.runtime}}m</span> | <span
+              class="ms-4">{{showMovie.vote_average}}B</span></span>
+          <p class="card-text mt-3">{{ showMovie.overview }}</p>
 
-                 <h6 class="mt-4">Language:</h6>
-                 <p class="card-text ">en</p>
-                 <h6 class="mt-4">Budget:</h6>
-                 <p class="card-text ">${{ showMovie.budget }}</p>
-                 <h6 class="mt-4">Revenue:</h6>
-                 <p class="card-text">${{ showMovie.revenue }}</p>
-              </div>
-              <a routerLink="/home"><button class="btn btn-success w-100">Go back</button></a>
+          <h6>Other Details:</h6>
+
+          <h6 class="mt-4">Language:</h6>
+          <p class="card-text ">en</p>
+          <h6 class="mt-4">Budget:</h6>
+          <p class="card-text ">${{ showMovie.budget }}</p>
+          <h6 class="mt-4">Revenue:</h6>
+          <p class="card-text">${{ showMovie.revenue }}</p>
+        </div>
+        <a routerLink="/home"><button class="btn btn-success w-100">Go back</button></a>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- This card sys shows Filter movies -->
+  <div class="row" *ngIf="filterHide">
+    <div class="col-md-3 col-sm-4 mt-1" *ngFor="let movie of filMovies">
+      <div class="card bg-light border-secondary" style="width: 100%;">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" class="card-img-top w-100 h-50 rounded-3" alt="..." (click)="showDetails(movie.id)">
+        <div class="card-body bg-light">
+          <h3 class="card-title text-center text-dark fs-5 text-dark shadow-lg">{{movie.title}}</h3>
+          <div class="d-flex justify-content-center">
+            <h5 class="card-text"><i class="fa fa-star text-bg-warning rounded-circle p-1" aria-hidden="true"></i> <span class="ms-4">{{movie.vote_average}}</span></h5>
+          </div>
         </div>
       </div>
-          
     </div>
   </div>
+</div>
+

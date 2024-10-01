@@ -1,2 +1,2 @@
 # IMDb-Rating-System 
-is showing Rating for movies
+it's showing Rating for movies
